@@ -9,33 +9,25 @@ export default {
    * @return {void}
    */
   signup(req, res) {
-    if (validate(req, res, 'signup')) {
-      const user = new User();
-
-      user.name = req.body.name;
-      user.username = req.body.username;
-      user.password = req.body.password;
-      user.email = req.body.email;
-
-      User.add(user);
-
-      // user.add((err, newUser) => {
-      //   console.log('>>>>>>>>', newUser);
-      //   if (err) {
-      //     res.status(500).send({
-      //       success: false,
-      //       message: err
-      //     });
-      //   }
-      //   return res.status(201).send({
-      //     success: true,
-      //     message: 'succesfully signed up'
-      //   });
-      // });
+    if (!validate(req, res, 'signup')) {
+      return res.status(400).json({
+        success: false,
+        error: 'Bad request'
+      });
     }
-    return res.status(400).send({
-      success: false,
-      message: 'Invalid parameters'
+    const user = new User({
+      name: req.body.name,
+      username: req.body.username,
+      password: req.body.password,
+      email: req.body.email
+    });
+    user.save((err, newUser) => {
+      if (err) {
+        console.log('===> error', err);
+        return res.status(500).json(err);
+      }
+      console.log('===> success', newUser);
+      return res.status(201).json(newUser);
     });
   },
 
@@ -47,12 +39,10 @@ export default {
    */
   signin(req, res) {
     if (validate(req, res, 'signin')) {
-      User.find({ username: req.body.username }, (err, user) => {
-        return res.send({
-          success: true,
-          user
-        });
-      });
+      User.find({ username: req.body.username }, (err, user) => res.send({
+        success: true,
+        user
+      }));
     }
     return res.status(400).send({
       success: false,
@@ -61,11 +51,9 @@ export default {
   },
 
   list(req, res) {
-    User.find((err, users) => {
-      return res.status(200).send({
-        success: true,
-        users
-      });
-    });
+    User.find((err, users) => res.status(200).send({
+      success: true,
+      users
+    }));
   }
 };
