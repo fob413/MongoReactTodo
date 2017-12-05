@@ -16,7 +16,7 @@ const dbPassword = process.env.DB_PASSWORD;
 const port = parseInt(process.env.PORT, 10) || 8000;
 
 // database config
-mongoose.connect(`mongodb://${dbUser}:${dbPassword}@ds119446.mlab.com:19446/todolist`)
+mongoose.connect(`mongodb://${dbUser}:${dbPassword}@ds119446.mlab.com:19446/todolist`);
 // Set up the express app
 const app = express();
 

@@ -1,5 +1,9 @@
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 import User from '../model/user';
 import validate from '../middleware/validate';
+
+const secret = process.env.SECRET;
 
 export default {
   /**
@@ -12,7 +16,7 @@ export default {
     if (!validate(req, res, 'signup')) {
       return res.status(400).json({
         success: false,
-        error: 'Bad request'
+        error: 'Invalid signup parameters'
       });
     }
     const user = new User({
@@ -23,26 +27,59 @@ export default {
     });
     user.save((err, newUser) => {
       if (err) {
-        console.log('===> error', err);
-        return res.status(500).json(err);
+        return res.status(500).send({
+          success: false,
+          message: err
+        });
       }
-      console.log('===> success', newUser);
-      return res.status(201).json(newUser);
+
+      const token = jwt.sign({
+        userId: newUser._id,
+        name: newUser.name,
+      }, secret, { expiresIn: 60 * 60 });
+
+      return res.status(201).send({
+        success: true,
+        token
+      });
     });
   },
 
-  /**
-   * login user
-   * @param {any} req user request object
-   * @param {any} res servers response
-   * @return {void}
-   */
   signin(req, res) {
     if (validate(req, res, 'signin')) {
-      User.find({ username: req.body.username }, (err, user) => res.send({
-        success: true,
-        user
-      }));
+      return User.findOne({ username: req.body.username })
+        .exec((err, user) => {
+          if (err) {
+            return res.status(401).send({
+              success: false,
+              message: 'User does not exist'
+            });
+          }
+
+          if (!user) {
+            return res.status(401).send({
+              success: false,
+              message: 'User does not exist'
+            });
+          }
+
+          if (!bcrypt.compareSync(req.body.password, user.password)) {
+            return res.status(401).send({
+              success: false,
+              error: 'Email or password is invalid'
+            });
+          }
+
+          const token = jwt.sign({
+            userId: user._id,
+            name: user.name,
+          }, secret, { expiresIn: 60 * 60 });
+
+          return res.status(201).send({
+            success: true,
+            token
+          });
+        });
     }
     return res.status(400).send({
       success: false,
