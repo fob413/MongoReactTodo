@@ -36,6 +36,8 @@
       }]
     },
     "globals": {
+      "document": true,
+      "window": true
     }
   }
   
