@@ -2,25 +2,25 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
-import { signupUser } from '../../actions/authentication';
+import { signinUser } from '../../actions/authentication';
 
 /**
  * @export
- * @class Signup
+ * @class Signin
  * @extends {React.Component}
+ * @return {void}
  */
-export class Signup extends React.Component {
+export class Signin extends React.Component {
   /**
-   * Creates an instance of Signup.
+   * Creates an instance of Signin.
    * @param {any} props
-   * @memberof Signup
+   * @memberof Signin
    */
   constructor(props) {
     super(props);
 
     this.state = {
       username: '',
-      email: '',
       password: ''
     };
 
@@ -47,29 +47,29 @@ export class Signup extends React.Component {
    */
   onSubmit(event) {
     event.preventDefault();
-    this.props.signupUser(this.state).then((response) => {
-      response.success && this.props.history.push('/dashboard');
+    this.props.signinUser(this.state).then((response) => {
+      response.success && this.props.history.push('/dashboard')
     });
   }
 
   /**
    * @returns
-   * @memberof Signup
+   * @memberof Signin
    * @return {void}
    */
   render() {
     return (
-      <form className="col s10 m12" onSubmit={this.onSubmit}>
+      <form className="col s12" onSubmit={this.onSubmit}>
         <div className="row">
           <div className="input-field col s12">
             <i className="material-icons orange-text prefix">account_circle</i>
             <input
+              value={this.state.username}
               id="icon_prefix"
               type="text"
               className="validate"
-              name="username"
               onChange={this.onChange}
-              value={this.state.username}
+              name="username"
               autoComplete="off"
               required
             />
@@ -78,30 +78,14 @@ export class Signup extends React.Component {
         </div>
         <div className="row">
           <div className="input-field col s12">
-            <i className="material-icons orange-text prefix">mail</i>
-            <input
-              id="icon_prefix"
-              type="text"
-              className="validate"
-              name="email"
-              onChange={this.onChange}
-              value={this.state.email}
-              autoComplete="off"
-              required
-            />
-            <label htmlFor="icon_prefix">Email</label>
-          </div>
-        </div>
-        <div className="row">
-          <div className="input-field col s12">
             <i className="material-icons orange-text prefix">lock</i>
             <input
+              value={this.state.password}
               id="icon_prefix"
               type="password"
               className="validate"
-              name="password"
               onChange={this.onChange}
-              value={this.state.password}
+              name="password"
               autoComplete="off"
               required
             />
@@ -109,18 +93,19 @@ export class Signup extends React.Component {
           </div>
         </div>
         <div className="row center">
-          <button className="waves-effect indigo darken-4 waves-light btn">SIGN-UP</button>
+          <button className="waves-effect indigo darken-4 waves-light btn">Login</button>
         </div>
+        <p className="forgot center">Forgot Password?</p>
       </form>
     );
   }
 }
 
-Signup.propTypes = {
-  signupUser: PropTypes.func.isRequired,
+Signin.propTypes = {
+  signinUser: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired
 };
 
 export default connect(null, {
-  signupUser
-})(withRouter(Signup));
+  signinUser
+})(withRouter(Signin));
