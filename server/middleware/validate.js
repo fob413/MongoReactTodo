@@ -10,7 +10,6 @@ const validate = (req, res, type) => {
   switch (type) {
     case 'signup':
       if (
-        req.body.name &&
         req.body.username &&
         req.body.password &&
         req.body.email

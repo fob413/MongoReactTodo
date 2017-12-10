@@ -20,7 +20,6 @@ export default {
       });
     }
     const user = new User({
-      name: req.body.name,
       username: req.body.username,
       password: req.body.password,
       email: req.body.email
@@ -35,11 +34,12 @@ export default {
 
       const token = jwt.sign({
         userId: newUser._id,
-        name: newUser.name,
+        username: newUser.username,
       }, secret, { expiresIn: 60 * 60 });
 
       return res.status(201).send({
         success: true,
+        username: newUser.username,
         token
       });
     });
@@ -72,11 +72,12 @@ export default {
 
           const token = jwt.sign({
             userId: user._id,
-            name: user.name,
+            username: user.username,
           }, secret, { expiresIn: 60 * 60 });
 
           return res.status(201).send({
             success: true,
+            username: user.username,
             token
           });
         });
