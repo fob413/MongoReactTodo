@@ -27,6 +27,20 @@ const validate = (req, res, type) => {
       }
       break;
 
+    case 'newTodo':
+      if (
+        req.body.title &&
+        req.body.description &&
+        req.body.id
+      ) {
+        validated = true;
+      }
+      break;
+
+    case 'listTodo':
+      validated = true;
+      break;
+
     default:
       break;
   }
