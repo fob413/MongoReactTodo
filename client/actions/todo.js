@@ -27,8 +27,15 @@ export function loadTodos() {
 
 /**
  * @export
+ * @param {object} newTodo users request object
  * @return {void}
  */
-export function createTodo() {
-  console.log('creating group');
+export function createTodo(newTodo) {
+  return () => (
+    axios.post('/api/v1/todo', newTodo, { headers: { token: localStorage.getItem('token') } })
+      .then(() => true, (err) => {
+        swal('Oops...', err.response.data.message, 'error');
+        return err.response.data;
+      })
+  );
 }
