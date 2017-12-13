@@ -16,3 +16,26 @@
   font-weight: bold;
   color: indigo;
 }
+
+.todoButton {
+  position: fixed;
+  top: 90vh;
+  left: 80vw;
+}
+
+.dashNav {
+  margin-top: 3vh;
+}
+
+.todos {
+  border: 2px solid indigo;
+  padding: 10px;
+  overflow-y: scroll;
+  border-radius: 30px;
+  margin-bottom: 2vh;
+}
+
+.todoList {
+  overflow-y: scroll;
+  height: 72vh;
+}

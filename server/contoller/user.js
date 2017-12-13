@@ -16,7 +16,7 @@ export default {
     if (!validate(req, res, 'signup')) {
       return res.status(400).json({
         success: false,
-        error: 'Invalid signup parameters'
+        message: 'Invalid signup parameters'
       });
     }
     const user = new User({
@@ -40,11 +40,18 @@ export default {
       return res.status(201).send({
         success: true,
         username: newUser.username,
+        id: newUser._id,
         token
       });
     });
   },
 
+  /**
+   * login a user to the platform
+   * @param {any} req user request object
+   * @param {any} res servers response
+   * @return {void}
+   */
   signin(req, res) {
     if (validate(req, res, 'signin')) {
       return User.findOne({ username: req.body.username })
@@ -66,7 +73,7 @@ export default {
           if (!bcrypt.compareSync(req.body.password, user.password)) {
             return res.status(401).send({
               success: false,
-              error: 'Email or password is invalid'
+              message: 'Email or password is invalid'
             });
           }
 
@@ -78,6 +85,7 @@ export default {
           return res.status(201).send({
             success: true,
             username: user.username,
+            id: user._id,
             token
           });
         });

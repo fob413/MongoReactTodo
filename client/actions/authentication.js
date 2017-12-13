@@ -27,6 +27,15 @@ const signupSuccess = payload => ({
 });
 
 /**
+ * action creator that sets current user to the store
+ * @param {object} payload response from siginup api call
+ * @return {object} action object of current user and action type
+ */
+const signoutSuccess = () => ({
+  type: SIGN_OUT
+});
+
+/**
  * login a user
  * @export
  * @param {object} user users request object
@@ -65,5 +74,18 @@ export function signupUser(user) {
         return err.response.data;
       })
   );
+}
+
+/**
+ * @export
+ * @param {any} user
+ * @return {void}
+ */
+export function signoutUser() {
+  return (dispatch) => {
+    dispatch(signoutSuccess());
+    localStorage.removeItem('token');
+    return true;
+  };
 }
 

@@ -1,5 +1,6 @@
 import path from 'path';
 import Todo from '../model/todo';
+import auth from '../middleware/authenticate';
 import todoController from '../contoller/todo';
 import userController from '../contoller/user';
 
@@ -15,7 +16,10 @@ module.exports = (app) => {
   app.post('/api/v1/signin', userController.signin);
 
   // create new todo
-  app.post('/api/v1/todo', todoController.newTodo);
+  app.post('/api/v1/todo', auth, todoController.newTodo);
+
+  // list users todo
+  app.get('/api/v1/todo/list', auth, todoController.listTodo);
 
   // list users
   app.get('/api/v1/list/user', userController.list);
