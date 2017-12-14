@@ -21,6 +21,12 @@ module.exports = (app) => {
   // list users todo
   app.get('/api/v1/todo/list', auth, todoController.listTodo);
 
+  // finish user todo
+  app.put('/api/v1/todo/finish', auth, todoController.finishTodo);
+
+  // delete user todo
+  app.delete('/api/v1/todo/delete', auth, todoController.deleteTodo);
+
   // list users
   app.get('/api/v1/list/user', userController.list);
 };

@@ -39,6 +39,7 @@ export class CreateTodo extends React.Component {
     this.afterOpenModal = this.afterOpenModal.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onCloseModal = this.onCloseModal.bind(this);
   }
 
   /**
@@ -75,7 +76,23 @@ export class CreateTodo extends React.Component {
       .then(() => {
         this.props.closeModal();
         this.props.loadTodos();
+        this.setState({
+          title: '',
+          description: ''
+        });
       });
+  }
+
+  /**
+   * @memberof CreateTodo
+   * @return {void}
+   */
+  onCloseModal() {
+    this.props.closeModal();
+    this.setState({
+      title: '',
+      description: ''
+    });
   }
 
   /**
@@ -87,6 +104,7 @@ export class CreateTodo extends React.Component {
     this.subtitle.style.color = '#000';
     this.subtitle.style.fontWeight = 'bold';
   }
+
 
   /**
    * @returns
@@ -110,7 +128,9 @@ export class CreateTodo extends React.Component {
               <h5 ref={subtitle => this.subtitle = subtitle}>Create Todo</h5>
             </div>
             <div className="col s2">
-              <i onClick={this.props.closeModal} className="material-icons right close red-text">close</i>
+              <i onClick={this.onCloseModal} className="material-icons right close red-text">
+                close
+              </i>
             </div>
           </div>
           <div className="row">
@@ -141,7 +161,10 @@ export class CreateTodo extends React.Component {
                   <label htmlFor="description">Description</label>
                 </div>
                 <div className="col s12">
-                  <a onClick={this.onSubmit} className="waves-effect waves-light btn right orange black-text">
+                  <a
+                    onClick={this.onSubmit}
+                    className="waves-effect waves-light btn right orange black-text"
+                  >
                     create
                   </a>
                 </div>
