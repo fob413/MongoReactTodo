@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import { signoutUser } from '../../actions/authentication';
+import CreateTodo from './CreateTodo';
 import Todos from './Todos';
 
 /**
@@ -20,10 +21,13 @@ export class DashBoard extends React.Component {
     super(props);
 
     this.state = {
-      todoName: ''
+      todoName: '',
+      modalIsOpen: false
     };
 
     this.onSignOut = this.onSignOut.bind(this);
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   /**
@@ -36,6 +40,23 @@ export class DashBoard extends React.Component {
     this.props.signoutUser();
     this.props.history.push('/');
   }
+
+  /**
+   * @memberof DashBoard
+   * @return {void}
+   */
+  openModal() {
+    this.setState({ modalIsOpen: true });
+  }
+
+  /**
+   * @memberof DashBoard
+   * @return {void}
+   */
+  closeModal() {
+    this.setState({ modalIsOpen: false });
+  }
+
   /**
    * @returns
    * @memberof DashBoard
@@ -65,8 +86,12 @@ export class DashBoard extends React.Component {
 
         <Todos />
         <a className="btn-floating btn-large waves-effect waves-light orange todoButton">
-          <i className="material-icons">add</i>
+          <i onClick={this.openModal} className="material-icons">add</i>
         </a>
+        <CreateTodo
+          modalIsOpen={this.state.modalIsOpen}
+          closeModal={this.closeModal}
+        />
       </div>
     );
   }

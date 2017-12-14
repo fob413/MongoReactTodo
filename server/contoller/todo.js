@@ -17,7 +17,7 @@ export default {
       });
     }
 
-    return User.findOne({ _id: req.body.id })
+    return User.findOne({ _id: req.decoded.userId })
       .exec((err, user) => {
         if (err) {
           return res.status(401).send({

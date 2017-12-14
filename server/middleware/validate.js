@@ -30,8 +30,7 @@ const validate = (req, res, type) => {
     case 'newTodo':
       if (
         req.body.title &&
-        req.body.description &&
-        req.body.id
+        req.body.description
       ) {
         validated = true;
       }
