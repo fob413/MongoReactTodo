@@ -40,6 +40,18 @@ const validate = (req, res, type) => {
       validated = true;
       break;
 
+    case 'finishTodo':
+      if (
+        req.body.todoId
+      ) {
+        validated = true;
+      }
+      break;
+
+    case 'deleteTodo':
+      validated = true;
+      break;
+
     default:
       break;
   }
