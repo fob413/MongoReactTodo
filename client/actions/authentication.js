@@ -45,7 +45,7 @@ export function signinUser(user) {
   return dispatch => (
     axios.post('/api/v1/signin', user)
       .then(({ data }) => {
-        swal('Successfully signed in');
+        swal(`Hi ${data.username}`);
         localStorage.setItem('token', data.token);
         dispatch(signinSuccess(data));
         return data;
@@ -65,7 +65,7 @@ export function signupUser(user) {
   return dispatch => (
     axios.post('/api/v1/signup', user)
       .then(({ data }) => {
-        swal('Successfully signed in');
+        swal(`Hi ${data.username}`);
         localStorage.setItem('token', data.token);
         dispatch(signupSuccess(data));
         return data;

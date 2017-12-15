@@ -49,11 +49,7 @@ const validate = (req, res, type) => {
       break;
 
     case 'deleteTodo':
-      if (
-        req.body.todoId
-      ) {
-        validated = true;
-      }
+      validated = true;
       break;
 
     default:

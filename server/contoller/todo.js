@@ -200,13 +200,15 @@ export default {
             message: 'user does not exist'
           });
         }
+        console.log('>>>>>>>>>>', req.query.id);
 
-        return Todo.findByIdAndRemove({ _id: req.body.todoId })
+        return Todo.findByIdAndRemove({ _id: req.query.id })
           .exec((err) => {
             if (err) {
               return res.status(400).send({
                 success: false,
-                message: 'please try again later'
+                message: 'please try again later',
+                todoId: req.header('todoId')
               });
             }
 
