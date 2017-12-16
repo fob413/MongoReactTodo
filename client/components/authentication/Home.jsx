@@ -48,7 +48,8 @@ export class Home extends React.Component {
             <img
               src="http://res.cloudinary.com/dha1rdetk/image/upload/v1512748232/todoLogo_wnfaji.png"
               alt="Todo logo"
-              width="50%"
+              width="220vw"
+              className="mainLogo"
             />
           </div>
           <div className="col s12 l8 signForm">

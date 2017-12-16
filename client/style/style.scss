@@ -49,3 +49,13 @@
   font-weight: bolder;
   cursor: pointer;
 }
+
+@media screen and (min-width: 1200px) {
+  .signForm {
+    margin-top: 20vh;
+  }
+
+  .mainLogo {
+    margin-top: 20vh;
+  }
+}
