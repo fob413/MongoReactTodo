@@ -64,7 +64,7 @@ export class Signup extends React.Component {
           <div className="input-field col s12">
             <i className="material-icons orange-text prefix">account_circle</i>
             <input
-              id="icon_prefix"
+              id="icon_prefix_signup_username"
               type="text"
               className="validate"
               name="username"
@@ -73,14 +73,14 @@ export class Signup extends React.Component {
               autoComplete="off"
               required
             />
-            <label htmlFor="icon_prefix">UserName</label>
+            <label htmlFor="icon_prefix_signup_username">UserName</label>
           </div>
         </div>
         <div className="row">
           <div className="input-field col s12">
             <i className="material-icons orange-text prefix">mail</i>
             <input
-              id="icon_prefix"
+              id="icon_prefix_signup_email"
               type="text"
               className="validate"
               name="email"
@@ -89,14 +89,14 @@ export class Signup extends React.Component {
               autoComplete="off"
               required
             />
-            <label htmlFor="icon_prefix">Email</label>
+            <label htmlFor="icon_prefix_signup_email">Email</label>
           </div>
         </div>
         <div className="row">
           <div className="input-field col s12">
             <i className="material-icons orange-text prefix">lock</i>
             <input
-              id="icon_prefix"
+              id="icon_prefix_signup_password"
               type="password"
               className="validate"
               name="password"
@@ -105,7 +105,7 @@ export class Signup extends React.Component {
               autoComplete="off"
               required
             />
-            <label htmlFor="icon_prefix">Password</label>
+            <label htmlFor="icon_prefix_signup_password">Password</label>
           </div>
         </div>
         <div className="row center">

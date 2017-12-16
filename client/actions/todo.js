@@ -1,10 +1,14 @@
 import axios from 'axios';
 import swal from 'sweetalert2';
-import { LOAD_TODOS } from '../helpers/constants';
+import { LOAD_TODOS, UNLOAD_TODOS } from '../helpers/constants';
 
 const loadTodosSuccess = payload => ({
   type: LOAD_TODOS,
   payload
+});
+
+const unloadTodoSuccess = () => ({
+  type: UNLOAD_TODOS
 });
 
 /**
@@ -37,6 +41,16 @@ export function createTodo(newTodo) {
         swal('Oops...', err.response.data.message, 'error');
         return err.response.data;
       })
+  );
+}
+
+/**
+ * @export
+ * @return {void}
+ */
+export function unloadTodo() {
+  return dispatch => (
+    dispatch(unloadTodoSuccess())
   );
 }
 

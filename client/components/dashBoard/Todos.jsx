@@ -2,8 +2,9 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import shordit from 'shortid';
+import swal from 'sweetalert2';
 import { PropTypes } from 'prop-types';
-import { loadTodos, deleteTodo, completeTodo } from '../../actions/todo';
+import { loadTodos, deleteTodo, completeTodo, unloadTodo } from '../../actions/todo';
 import Todo from './Todo';
 
 /**
@@ -48,6 +49,14 @@ export class Todos extends React.Component {
   }
 
   /**
+   * @memberof Todos
+   * @return {void}
+   */
+  componentWillUnmount() {
+    this.props.unloadTodo();
+  }
+
+  /**
    * finish up a todo
    * @memberof Todos
    * @param {any} id
@@ -73,6 +82,7 @@ export class Todos extends React.Component {
       todoId: id
     };
     this.props.deleteTodo(todoId).then(() => {
+      swal('Todo deleted');
       this.props.loadTodos();
     });
     this.props.loadTodos();
@@ -109,7 +119,8 @@ Todos.propTypes = {
   loadTodos: PropTypes.func.isRequired,
   todos: PropTypes.array.isRequired,
   completeTodo: PropTypes.func.isRequired,
-  deleteTodo: PropTypes.func.isRequired
+  deleteTodo: PropTypes.func.isRequired,
+  unloadTodo: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => (
@@ -121,5 +132,6 @@ const mapStateToProps = state => (
 export default connect(mapStateToProps, {
   loadTodos,
   completeTodo,
-  deleteTodo
+  deleteTodo,
+  unloadTodo
 })(withRouter(Todos));

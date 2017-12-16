@@ -65,7 +65,7 @@ export class Signin extends React.Component {
             <i className="material-icons orange-text prefix">account_circle</i>
             <input
               value={this.state.username}
-              id="icon_prefix"
+              id="icon_prefix_username"
               type="text"
               className="validate"
               onChange={this.onChange}
@@ -73,7 +73,7 @@ export class Signin extends React.Component {
               autoComplete="off"
               required
             />
-            <label htmlFor="icon_prefix">UserName</label>
+            <label htmlFor="icon_prefix_username">UserName</label>
           </div>
         </div>
         <div className="row">
@@ -81,7 +81,7 @@ export class Signin extends React.Component {
             <i className="material-icons orange-text prefix">lock</i>
             <input
               value={this.state.password}
-              id="icon_prefix"
+              id="icon_prefix_password"
               type="password"
               className="validate"
               onChange={this.onChange}
@@ -89,13 +89,13 @@ export class Signin extends React.Component {
               autoComplete="off"
               required
             />
-            <label htmlFor="icon_prefix">Password</label>
+            <label htmlFor="icon_prefix_password">Password</label>
           </div>
         </div>
         <div className="row center">
           <button className="waves-effect indigo darken-4 waves-light btn">Login</button>
         </div>
-        <p className="forgot center">Forgot Password?</p>
+        {/* <p className="forgot center">Forgot Password?</p> */}
       </form>
     );
   }
